@@ -65,9 +65,8 @@ def reescribir_con_ia(titulo_orig, resumen_orig):
         res = requests.post(url, headers=headers, json=payload, timeout=20).json()
         contenido_crudo = res['choices'][0]['message']['content']
         
-        # Limpieza de seguridad por si Groq devuelve formato Markdown
-        contenido_limpio = contenido_crudo.replace("
-```json", "").replace("```", "").strip()
+        # 🔥 CORRECCIÓN: Quitamos los bloques de código usando Regex para evitar fallos de sintaxis
+        contenido_limpio = re.sub(r'```[a-z]*', '', contenido_crudo).strip()
         data = json.loads(contenido_limpio)
         
         return data.get("titulo", titulo_orig), data.get("resumen", resumen_orig), data.get("contenido", resumen_orig)
