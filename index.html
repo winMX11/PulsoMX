@@ -69,9 +69,6 @@
         .news-card .fecha { font-size: 0.68rem; color: var(--rojo); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         .news-card h3 { font-family: 'Playfair Display', serif; font-size: clamp(0.85rem, 2.2vw, 1rem); font-weight: 700; line-height: 1.35; margin-top: 4px; color: var(--texto); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-        /* ── AD EN GRID ── */
-        .ad-in-grid { background: #f0f0f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; min-height: 100px; text-align: center; overflow: hidden; }
-
         /* ── SIDEBAR ── */
         .sidebar-widget { background: white; border-radius: 10px; padding: 16px; margin-bottom: 18px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
         .sidebar-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 900; border-bottom: 2px solid var(--rojo); padding-bottom: 8px; margin-bottom: 12px; text-transform: uppercase; }
@@ -80,7 +77,6 @@
         .sidebar-news-item img { width: 68px; height: 52px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
         .sidebar-news-item h4 { font-size: 0.78rem; font-weight: 700; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .sidebar-news-item span { font-size: 0.63rem; color: var(--rojo); font-weight: 700; display: block; margin-bottom: 2px; }
-        .ad-sidebar { text-align: center; overflow: hidden; margin-bottom: 18px; }
 
         /* ── FOOTER ── */
         footer { background: var(--texto); color: rgba(255,255,255,0.7); margin-top: 40px; padding: 24px 16px; text-align: center; font-size: 0.8rem; }
@@ -115,7 +111,6 @@
         </div>
     </div>
 
-
     <div class="main-wrapper">
         <main>
             <p class="section-title">Titulares de Hoy</p>
@@ -137,6 +132,8 @@
                 <p class="sidebar-title">Lo más leído</p>
                 <div id="sidebar-list"></div>
             </div>
+        </aside>
+    </div>
 
     <footer>
         <div class="footer-links">
@@ -146,7 +143,7 @@
             <a href="contacto.html">Contacto</a>
             <a href="acerca.html">Acerca de</a>
         </div>
-        <p>© 2025 PulsoMX — Noticias de México actualizadas automáticamente.</p>
+        <p>© 2026 PulsoMX — Noticias de México actualizadas automáticamente.</p>
         <p style="margin-top:5px;font-size:0.72rem;opacity:0.6;">Las noticias son recopiladas de fuentes públicas. PulsoMX no se responsabiliza por el contenido de terceros.</p>
     </footer>
 
@@ -170,9 +167,7 @@
 
                 const grid = document.getElementById('news-grid');
                 grid.innerHTML = '';
-                noticias.slice(1).forEach((n, i) => {
-                    if (i > 0 && i % 4 === 0) {
-                        grid.innerHTML += `
+                noticias.slice(1).forEach((n) => {
                     grid.innerHTML += `
                         <a href="noticia.html?id=${n.id}" class="news-card">
                             <img src="${n.imagen}" alt="${n.titulo}" loading="lazy">
