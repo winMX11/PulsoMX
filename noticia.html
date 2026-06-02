@@ -3,324 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="PulsoMX">
-    <meta property="og:type" content="article">
-    <title id="page-title">Noticia | PulsoMX</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google AdSense -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script> -->
+    <title>PulsoMX - Cargando Noticia...</title>
     <style>
-        :root {
-            --rojo: #c0152a; --rojo-oscuro: #8b0f1e;
-            --amarillo: #f5b800; --gris: #f4f4f2;
-            --texto: #1a1a2e; --texto-suave: #6b7280;
-        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Source Sans 3', sans-serif; background: var(--gris); color: var(--texto); }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #222; background-color: #f7f9fa; padding-bottom: 40px; }
+        header { background-color: #1a1a1a; color: white; padding: 15px 20px; text-align: center; font-weight: bold; font-size: 1.5rem; letter-spacing: 1px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        header a { color: white; text-decoration: none; }
+        
+        .container { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        
+        /* Contenedores Inteligentes de Anuncios */
+        .ad-slot { display: flex; justify-content: center; align-items: center; margin: 20px 0; background: #fafafa; padding: 5px; border-radius: 4px; }
+        .desktop-ad { display: block; }
+        .mobile-ad { display: none; }
 
-        header {
-            background: var(--rojo); position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        /* Estilos de la Noticia */
+        .meta-info { font-size: 0.85rem; color: #666; margin-bottom: 10px; text-transform: uppercase; font-weight: bold; }
+        h1 { font-size: 2rem; line-height: 1.2; margin-bottom: 15px; color: #111; }
+        .resumen { font-size: 1.15rem; color: #555; font-style: italic; margin-bottom: 20px; border-left: 4px solid #de2a2a; padding-left: 15px; line-height: 1.4; }
+        .news-img { width: 100%; max-height: 450px; object-fit: cover; border-radius: 6px; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .contenido-principal { font-size: 1.1rem; line-height: 1.7; color: #333; text-align: justify; }
+        .contenido-principal p { margin-bottom: 18px; }
+        
+        .error-msg { text-align: center; padding: 5px; color: #de2a2a; font-weight: bold; }
+
+        /* Adaptación para pantallas móviles */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.6rem; }
+            .container { margin: 10px; padding: 15px; }
+            .desktop-ad { display: none; } /* Oculta el banner de 728px en celular */
+            .mobile-ad { display: block; }  /* Muestra el banner de 320px en celular */
         }
-        .header-inner {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 12px 20px;
-        }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: white; text-decoration: none; }
-        .logo span { color: var(--amarillo); }
-        .header-nav { display: flex; gap: 20px; }
-        .header-nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
-        .header-nav a:hover { color: var(--amarillo); }
-
-        .ad-top { background: #e8e8e8; border-bottom: 1px solid #ddd; text-align: center; padding: 10px; font-size: 11px; color: #999; letter-spacing: 1px; }
-
-        .article-wrapper {
-            max-width: 1200px; margin: 28px auto; padding: 0 20px;
-            display: grid; grid-template-columns: 1fr 300px; gap: 28px;
-        }
-        @media (max-width: 900px) { .article-wrapper { grid-template-columns: 1fr; } .sidebar { display: none; } }
-
-        .breadcrumb { font-size: 0.8rem; color: var(--texto-suave); margin-bottom: 16px; }
-        .breadcrumb a { color: var(--rojo); text-decoration: none; }
-        .breadcrumb a:hover { text-decoration: underline; }
-
-        article {
-            background: white; border-radius: 12px;
-            padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-        }
-
-        .article-tag {
-            background: var(--rojo); color: white;
-            font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
-            text-transform: uppercase; padding: 3px 10px; border-radius: 4px;
-            display: inline-block; margin-bottom: 12px;
-        }
-
-        #title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem; font-weight: 900; line-height: 1.2;
-            margin-bottom: 12px; color: var(--texto);
-        }
-        @media (max-width: 600px) { #title { font-size: 1.5rem; } }
-
-        .article-meta {
-            display: flex; align-items: center; gap: 16px;
-            padding: 12px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee;
-            margin-bottom: 20px; font-size: 0.82rem; color: var(--texto-suave);
-        }
-        .article-meta i { color: var(--rojo); }
-
-        #image {
-            width: 100%; height: 380px; object-fit: cover;
-            border-radius: 10px; margin-bottom: 24px;
-            display: block; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-        }
-
-        /* Ad dentro del artículo */
-        .ad-article {
-            background: #f0f0f0; border-radius: 8px;
-            padding: 20px; text-align: center; margin: 28px 0;
-            font-size: 11px; color: #aaa; letter-spacing: 1px; text-transform: uppercase;
-            border: 2px dashed #ddd; min-height: 100px;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        #body {
-            font-size: 1.05rem; line-height: 1.85;
-            color: #2d2d2d; font-family: 'Source Sans 3', sans-serif;
-        }
-        #body p { margin-bottom: 18px; }
-
-        /* Fuente original */
-        .source-box {
-            background: #f8f8f8; border-left: 4px solid var(--rojo);
-            padding: 14px 18px; border-radius: 0 8px 8px 0;
-            margin-top: 28px; font-size: 0.85rem;
-        }
-        .source-box a { color: var(--rojo); font-weight: 700; }
-
-        /* Compartir */
-        .share-box { margin-top: 28px; padding-top: 20px; border-top: 1px solid #eee; }
-        .share-box p { font-weight: 700; font-size: 0.9rem; margin-bottom: 10px; }
-        .share-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-        .share-btn {
-            padding: 8px 16px; border-radius: 8px; font-weight: 700;
-            font-size: 0.8rem; text-decoration: none; color: white;
-            display: flex; align-items: center; gap-6px; gap: 6px; transition: opacity 0.2s;
-        }
-        .share-btn:hover { opacity: 0.85; }
-        .share-btn.wa { background: #25D366; }
-        .share-btn.tw { background: #1DA1F2; }
-        .share-btn.fb { background: #1877F2; }
-
-        /* Noticias relacionadas */
-        .related-title {
-            font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900;
-            border-left: 4px solid var(--rojo); padding-left: 12px;
-            margin: 36px 0 18px; text-transform: uppercase;
-        }
-        .related-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
-        @media (max-width: 600px) { .related-grid { grid-template-columns: 1fr; } }
-        .related-card {
-            background: white; border-radius: 10px; overflow: hidden;
-            box-shadow: 0 1px 6px rgba(0,0,0,0.06); text-decoration: none; color: inherit;
-            display: block; transition: transform 0.2s;
-        }
-        .related-card:hover { transform: translateY(-2px); }
-        .related-card img { width: 100%; height: 140px; object-fit: cover; }
-        .related-card div { padding: 12px; }
-        .related-card h4 { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; line-height: 1.3; }
-
-        /* Sidebar */
-        .sidebar-widget { background: white; border-radius: 10px; padding: 18px; margin-bottom: 20px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
-        .sidebar-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 900; border-bottom: 2px solid var(--rojo); padding-bottom: 8px; margin-bottom: 14px; text-transform: uppercase; }
-        .sidebar-news-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; }
-        .sidebar-news-item:last-child { border-bottom: none; }
-        .sidebar-news-item img { width: 70px; height: 55px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
-        .sidebar-news-item h4 { font-size: 0.8rem; font-weight: 700; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .sidebar-news-item span { font-size: 0.65rem; color: var(--rojo); font-weight: 700; display: block; margin-bottom: 3px; }
-        .ad-sidebar { background: #e8e8e8; border-radius: 10px; min-height: 250px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #aaa; letter-spacing: 1px; text-transform: uppercase; border: 2px dashed #ccc; }
-
-        footer { background: var(--texto); color: rgba(255,255,255,0.7); margin-top: 40px; padding: 30px 20px; text-align: center; font-size: 0.82rem; }
-        footer a { color: var(--amarillo); text-decoration: none; }
-        .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 12px; flex-wrap: wrap; }
-
-        #loader { text-align: center; padding: 60px; color: var(--texto-suave); }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-inner">
-            <a href="index.html" class="logo">⚡ PULSO<span>MX</span></a>
-            <nav class="header-nav">
-                <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Inicio</a>
-                <a href="privacidad.html">Privacidad</a>
-                <a href="contacto.html">Contacto</a>
-            </nav>
-        </div>
+        <a href="index.html">PulsoMX</a>
     </header>
 
-    <div class="ad-top">
-        <!-- AdSense Banner Top -->
-        Publicidad
-    </div>
-
-    <div id="loader"><i class="fa-solid fa-spinner fa-spin" style="color:var(--rojo);font-size:2rem;"></i><p style="margin-top:12px;">Cargando noticia...</p></div>
-
-    <div id="article-wrapper" class="article-wrapper" style="display:none;">
-        <main>
-            <div class="breadcrumb">
-                <a href="index.html">Inicio</a> &rsaquo; <span id="breadcrumb-title">Noticia</span>
+    <div class="container">
+        
+        <!-- ========================================== -->
+        <!-- PUBLICIDAD SUPERIOR (CONTROL RESPONSIVO) -->
+        <!-- ========================================== -->
+        <div class="ad-slot">
+            <!-- Banner Computadora (728x90) -->
+            <div class="desktop-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '7f7f7c1f4dcc288bb79ea8e84f8e3cfa',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://alarmpenguinmelt.com/7f7f7c1f4dcc288bb79ea8e84f8e3cfa/invoke.js"></script>
             </div>
-
-            <article>
-                <span class="article-tag">Noticia</span>
-                <h1 id="title"></h1>
-                <div class="article-meta">
-                    <span><i class="fa-regular fa-calendar"></i> <span id="date"></span></span>
-                    <span><i class="fa-solid fa-newspaper"></i> PulsoMX</span>
-                    <span><i class="fa-solid fa-clock"></i> 2 min de lectura</span>
-                </div>
-                <img id="image" alt="">
-
-                <!-- Ad dentro del artículo (parte superior) -->
-                <div class="ad-article">
-                    <!-- AdSense In-Article -->
-                    Publicidad
-                </div>
-
-                <div id="body"></div>
-
-                <!-- Ad dentro del artículo (parte inferior) -->
-                <div class="ad-article" style="margin-top:28px;">
-                    Publicidad
-                </div>
-
-                <!-- Fuente original -->
-                <div class="source-box">
-                    <i class="fa-solid fa-link" style="color:var(--rojo);margin-right:6px;"></i>
-                    Fuente original: <a id="source-link" href="#" target="_blank" rel="noopener noreferrer">Ver noticia completa</a>
-                </div>
-
-                <!-- Compartir -->
-                <div class="share-box">
-                    <p><i class="fa-solid fa-share-nodes" style="color:var(--rojo);margin-right:6px;"></i>Compartir esta noticia</p>
-                    <div class="share-btns">
-                        <a id="share-wa" href="#" target="_blank" class="share-btn wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-                        <a id="share-tw" href="#" target="_blank" class="share-btn tw"><i class="fa-brands fa-x-twitter"></i> Twitter</a>
-                        <a id="share-fb" href="#" target="_blank" class="share-btn fb"><i class="fa-brands fa-facebook"></i> Facebook</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Noticias relacionadas -->
-            <p class="related-title">Noticias Relacionadas</p>
-            <div id="related-grid" class="related-grid"></div>
-        </main>
-
-        <aside class="sidebar">
-            <div class="sidebar-widget">
-                <p class="sidebar-title">Últimas Noticias</p>
-                <div id="sidebar-list"></div>
+            
+            <!-- Banner Celular (320x50) -->
+            <div class="mobile-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'd4763e5f8fb679f246c0f6db1eebe973',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="https://alarmpenguinmelt.com/d4763e5f8fb679f246c0f6db1eebe973/invoke.js"></script>
             </div>
-            <div class="ad-sidebar">Publicidad</div>
-        </aside>
-    </div>
-
-    <footer>
-        <div class="footer-links">
-            <a href="index.html">Inicio</a>
-            <a href="privacidad.html">Política de Privacidad</a>
-            <a href="terminos.html">Términos de Uso</a>
-            <a href="contacto.html">Contacto</a>
-            <a href="acerca.html">Acerca de</a>
         </div>
-        <p>© 2025 PulsoMX — Noticias de México actualizadas automáticamente.</p>
-    </footer>
+        <!-- ========================================== -->
 
+        <!-- Espacio Dinámico para la Noticia -->
+        <div id="noticia-dinamica">
+            <div class="error-msg">Cargando los detalles de la noticia...</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- PUBLICIDAD INFERIOR (BANNER NATIVO ORGÁNICO) -->
+        <!-- ========================================== -->
+        <div class="ad-slot" style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">
+            <div style="width: 100%;">
+                <p style="font-size: 0.8rem; color: #999; margin-bottom: 8px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Contenido Patrocinado</p>
+                <script async="async" data-cfasync="false" src="https://alarmpenguinmelt.com/7378a712ef2e1acc90b8893efa12f6e6/invoke.js"></script>
+                <div id="container-7378a712ef2e1acc90b8893efa12f6e6"></div>
+            </div>
+        </div>
+        <!-- ========================================== -->
+
+    </div>
+
+    <!-- LÓGICA JAVASCRIPT PARA LEER EL JSON DEL BOT -->
     <script>
-        const id = new URLSearchParams(window.location.search).get('id');
+        async function cargarNoticiaIndividual() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const noticiaId = parseInt(urlParams.get('id'));
 
-        fetch("data/noticias.json")
-            .then(res => res.json())
-            .then(data => {
-                const item = data.find(n => String(n.id) === String(id));
-                if (!item) {
-                    document.getElementById('loader').innerHTML = '<p>La noticia no existe o fue eliminada.</p>';
-                    return;
+            if (!noticiaId) {
+                document.getElementById('noticia-dinamica').innerHTML = "<div class='error-msg'>🚨 Error: No se especificó ninguna noticia para mostrar.</div>";
+                return;
+            }
+
+            try {
+                // Modifica esta ruta si tu JSON se guarda en otra subcarpeta
+                const respuesta = await fetch('data/noticias.json');
+                const noticias = await respuesta.json();
+                
+                // Buscamos la noticia exacta que coincida con el ID de la URL
+                const nota = noticias.find(n => n.id === noticiaId);
+
+                if (nota) {
+                    // Cambiamos el título de la pestaña del navegador
+                    document.title = `${nota.titulo} - PulsoMX`;
+
+                    // Dividimos el contenido largo por saltos de línea para renderizar párrafos HTML limpios
+                    const parrafos = nota.contenido.split('\n').filter(p => p.trim() !== '');
+                    let contenidoHtml = '';
+                    parrafos.forEach(p => {
+                        contenidoHtml += `<p>${p}</p>`;
+                    });
+
+                    // Inyectamos la estructura final
+                    document.getElementById('noticia-dinamica').innerHTML = `
+                        <div class="meta-info">Publicado el: ${nota.fecha} • Por Redacción PulsoMX</div>
+                        <h1>${nota.titulo}</h1>
+                        <div class="resumen">${nota.resumen}</div>
+                        <img class="news-img" src="${nota.imagen}" alt="${nota.titulo}">
+                        <div class="contenido-principal">
+                            ${contenidoHtml}
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('noticia-dinamica').innerHTML = "<div class='error-msg'>🚨 Error: La noticia solicitada ya no se encuentra disponible.</div>";
                 }
-
-                // Meta tags dinámicos
-                document.title = `${item.titulo} | PulsoMX`;
-                document.getElementById('page-title').innerText = `${item.titulo} | PulsoMX`;
-                document.querySelector('meta[name="description"]')?.setAttribute('content', item.titulo);
-
-                // Contenido
-                document.getElementById('breadcrumb-title').innerText = item.titulo.substring(0, 50) + '...';
-                document.getElementById('date').innerText = item.fecha;
-                document.getElementById('title').innerText = item.titulo;
-                document.getElementById('image').src = item.imagen;
-                document.getElementById('image').alt = item.titulo;
-
-                // Cuerpo del artículo
-                const cuerpo = item.contenido || item.resumen || item.titulo;
-                const textoCuerpo = limpiarHTML(cuerpo);
-                document.getElementById('body').innerHTML = textoCuerpo
-                    .split('\n').filter(p => p.trim())
-                    .map(p => `<p>${p}</p>`).join('');
-
-                // Fuente original
-                document.getElementById('source-link').href = item.url_origen || '#';
-
-                // Compartir
-                const urlActual = encodeURIComponent(window.location.href);
-                const tituloEnc = encodeURIComponent(item.titulo);
-                document.getElementById('share-wa').href = `https://wa.me/?text=${tituloEnc}%20${urlActual}`;
-                document.getElementById('share-tw').href = `https://twitter.com/intent/tweet?text=${tituloEnc}&url=${urlActual}`;
-                document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${urlActual}`;
-
-                // Mostrar artículo
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('article-wrapper').style.display = 'grid';
-
-                // Noticias relacionadas (excluyendo la actual)
-                const relacionadas = data.filter(n => String(n.id) !== String(id)).slice(-4).reverse();
-                const relGrid = document.getElementById('related-grid');
-                relacionadas.forEach(n => {
-                    relGrid.innerHTML += `
-                        <a href="noticia.html?id=${n.id}" class="related-card">
-                            <img src="${n.imagen}" alt="${n.titulo}" loading="lazy">
-                            <div><h4>${n.titulo}</h4></div>
-                        </a>`;
-                });
-
-                // Sidebar
-                const sidebar = document.getElementById('sidebar-list');
-                data.slice(-5).reverse().forEach(n => {
-                    sidebar.innerHTML += `
-                        <a href="noticia.html?id=${n.id}" class="sidebar-news-item">
-                            <img src="${n.imagen}" alt="${n.titulo}" loading="lazy">
-                            <div>
-                                <span>${n.fecha}</span>
-                                <h4>${n.titulo}</h4>
-                            </div>
-                        </a>`;
-                });
-            })
-            .catch(() => {
-                document.getElementById('loader').innerHTML = '<p>Error al cargar la noticia.</p>';
-            });
-
-        function limpiarHTML(html) {
-            const div = document.createElement('div');
-            div.innerHTML = html;
-            return div.textContent || div.innerText || html;
+            } catch (error) {
+                console.error("Fallo al leer noticias.json:", error);
+                document.getElementById('noticia-dinamica').innerHTML = "<div class='error-msg'>⚠️ Error técnico al conectar con el servidor de contenidos.</div>";
+            }
         }
+
+        // Ejecutar al cargar la página
+        window.onload = cargarNoticiaIndividual;
     </script>
 </body>
 </html>
