@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": 1,
+    "titulo_original": "Cadena 3 ya está en México, la sede que abrirá el Mundial 2026 - Cadena 3 Argentina",
+    "titulo": "Cadena 3 llega a México para el Mundial 2026",
+    "resumen": "La cadena argentina Cadena 3 anuncia su llegada a México con motivo del Mundial 2026",
+    "contenido": "La cadena de televisión argentina Cadena 3 ha anunciado su llegada a México, donde se llevará a cabo el Mundial de Fútbol 2026. Esta expansión marca un hito importante para la cadena, que busca ofrecer cobertura y contenido de alta calidad a los fanáticos del fútbol en México y otros países de la región.",
+    "imagen": "https://image.pollinations.ai/prompt/photorealistic%20news%20photography%2C%20Cadena%203%20llega%20a%20Mxico%20para%20el%20Mundial%202026%2C%20high%20resolution%2C%20cinematic%20lighting?width=800&height=500&nologo=true&seed=42",
+    "fecha": "2026-06-02"
+  }
+]
