@@ -27,11 +27,25 @@ def guardar_noticias(noticias):
         json.dump(noticias, f, ensure_ascii=False, indent=2)
 
 def extraer_imagen(item):
-    """Extrae la imagen original desde el tag 'media:content' o 'enclosure' del RSS."""
-    # Google News a veces mete la imagen en media:content
+    """Extrae la imagen buscando en media:content, enclosure, o dentro del HTML de la descripción."""
+    # 1. Intentar en media:content (Google News usa esto)
     media = item.find('{http://search.yahoo.com/mrss/}content')
     if media is not None and 'url' in media.attrib:
         return media.attrib['url']
+    
+    # 2. Intentar en tag enclosure
+    enclosure = item.find('enclosure')
+    if enclosure is not None and 'url' in enclosure.attrib:
+        return enclosure.attrib['url']
+    
+    # 3. Si no hay nada, buscar dentro del HTML de la descripción (código muy eficiente)
+    desc = item.find('description').text if item.find('description') is not None else ""
+    match = re.search(r'src=["\'](https?://[^"\']+)["\']', desc)
+    if match:
+        return match.group(1)
+        
+    # 4. SOLO SI NO ENCUENTRA NADA, devuelve una imagen fija tuya
+    return "https://i.imgur.com/TuImagenLogo.jpg" # <--- CAMBIA ESTO POR EL LINK DE TU LOGO
     
     # Intento fallback en tag enclosure
     enclosure = item.find('enclosure')
