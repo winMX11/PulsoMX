@@ -28,22 +28,51 @@ def guardar_noticias(noticias):
     with open(JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(noticias, f, ensure_ascii=False, indent=2)
 
-# --- NUEVA FUNCIÓN PARA EXTRAER LA IMAGEN REAL ---
 def obtener_imagen_real(url):
     try:
-        response = requests.get(url, headers=HEADERS, timeout=10)
+        # Aumentamos el timeout y los headers para parecer más un navegador real
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+        }
+        response = requests.get(url, headers=headers, timeout=15)
+        
+        if response.status_code != 200:
+            print(f"⚠️ No pude entrar a la noticia (Código {response.status_code}): {url}")
+            return "https://images.unsplash.com/photo-1504711434269-d0385429813a?q=80&w=800&auto=format&fit=crop"
+
         soup = BeautifulSoup(response.content, 'html.parser')
-        
-        # Buscar la etiqueta <meta property="og:image" ...>
-        img_tag = soup.find("meta", property="og:image") or soup.find("meta", attrs={"name": "twitter:image"})
-        
-        if img_tag and img_tag.get("content"):
-            return img_tag["content"]
+
+        # Lista de lugares donde los periódicos suelen esconder la imagen
+        posibles_tags = [
+            soup.find("meta", property="og:image"),
+            soup.find("meta", property="twitter:image"),
+            soup.find("meta", name="twitter:image"),
+            soup.find("link", rel="image_src"),
+            soup.find("meta", itemprop="image")
+        ]
+
+        # Intentamos obtener el contenido de cada una
+        for tag in posibles_tags:
+            if tag and tag.get("content"):
+                imagen = tag["content"]
+                # A veces la imagen es relativa (empieza por /), arreglémosla
+                if imagen.startswith("/"):
+                    from urllib.parse import urljoin
+                    imagen = urljoin(url, imagen)
+                return imagen
+
+        # Si llegamos aquí, no encontramos tags meta. 
+        # Último intento: buscar la primera imagen grande en el body (muy arriesgado pero efectivo)
+        img_tag = soup.find("img", class_=lambda x: x and ('article' in x or 'post' in x or 'photo' in x))
+        if img_tag and img_tag.get("src"):
+            return img_tag["src"]
+
+        print(f"❌ No encontré imagen en: {url}")
+        return "https://images.unsplash.com/photo-1504711434269-d0385429813a?q=80&w=800&auto=format&fit=crop"
+
     except Exception as e:
-        print(f"⚠️ Error extrayendo imagen: {e}")
-    
-    # Imagen por defecto si no se encuentra nada
-    return "https://images.unsplash.com/photo-1504711434269-d0385429813a?q=80&w=800&auto=format&fit=crop"
+        print(f"⚠️ Error crítico extrayendo imagen: {e}")
+        return "https://images.unsplash.com/photo-1504711434269-d0385429813a?q=80&w=800&auto=format&fit=crop"
 
 def reescribir_con_ia(titulo_orig):
     if not GROQ_API_KEY:
