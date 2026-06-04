@@ -50,15 +50,19 @@
         #image { width: 100%; height: clamp(180px, 40vw, 380px); object-fit: cover; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
 
         /* AD dentro del artículo */
-        .ad-article, .ad-article-native { text-align: center; margin: 24px 0; overflow: hidden; }
+        .ad-article { text-align: center; margin: 24px 0; overflow: hidden; }
+        .ad-article-native { margin: 24px 0; overflow: hidden; }
+        /* iframe nativo al 100% de ancho */
         .ad-article-native iframe { width: 100% !important; max-width: 100%; height: 250px; border: none; }
 
         #body { font-size: clamp(0.95rem, 2.5vw, 1.05rem); line-height: 1.85; color: #2d2d2d; word-break: break-word; }
         #body p { margin-bottom: 16px; }
 
-        /* SOURCE & SHARE */
+        /* SOURCE */
         .source-box { background: #f8f8f8; border-left: 4px solid var(--rojo); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 24px; font-size: 0.83rem; word-break: break-all; }
         .source-box a { color: var(--rojo); font-weight: 700; }
+
+        /* SHARE */
         .share-box { margin-top: 24px; padding-top: 18px; border-top: 1px solid #eee; }
         .share-box p { font-weight: 700; font-size: 0.88rem; margin-bottom: 10px; }
         .share-btns { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -87,19 +91,6 @@
         .sidebar-news-item h4 { font-size: 0.78rem; font-weight: 700; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .sidebar-news-item span { font-size: 0.63rem; color: var(--rojo); font-weight: 700; display: block; margin-bottom: 2px; }
         .ad-sidebar { text-align: center; overflow: hidden; margin-bottom: 18px; }
-
-        /* WIDGET CLIMA (NUEVO) */
-        .weather-box { text-align: center; }
-        .weather-current { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px; }
-        .weather-current i { font-size: 2.5rem; color: var(--rojo); }
-        .weather-current h3 { font-size: 2.2rem; font-family: 'Playfair Display', serif; color: var(--texto); }
-        .weather-location { font-size: 0.8rem; color: var(--texto-suave); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-        .weather-forecast { display: flex; flex-direction: column; gap: 0; }
-        .weather-day { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; padding: 8px 0; border-top: 1px solid #f0f0f0; }
-        .weather-day-info { display: flex; align-items: center; gap: 10px; font-weight: 600; text-transform: capitalize; }
-        .weather-day-info i { color: var(--texto-suave); width: 16px; text-align: center; }
-        .weather-day-temps { color: var(--texto-suave); }
-        .weather-day-temps span { font-weight: 700; color: var(--texto); margin-left: 6px; }
 
         /* FOOTER */
         footer { background: var(--texto); color: rgba(255,255,255,0.7); margin-top: 40px; padding: 24px 16px; text-align: center; font-size: clamp(0.72rem, 2vw, 0.8rem); }
@@ -190,22 +181,11 @@
 
         <aside class="sidebar">
             <div class="sidebar-widget">
-                <p class="sidebar-title">Clima en tu zona</p>
-                <div id="weather-widget" class="weather-box">
-                    <div style="padding: 15px; color: var(--texto-suave); font-size: 0.85rem;">
-                        <i class="fa-solid fa-location-dot fa-fade" style="color: var(--rojo); margin-bottom: 8px; font-size: 1.5rem;"></i><br>
-                        Detectando ubicación...
-                    </div>
-                </div>
-            </div>
-
-            <div class="ad-sidebar">
-                <iframe sandbox="allow-scripts allow-popups allow-same-origin" width="320" height="50" frameborder="0" scrolling="no" srcdoc="<html><body><script>atOptions = {'key':'d4763e5f8fb679f246c0f6db1eebe973','format':'iframe','height':50,'width':320,'params':{}};</script><script src='https://alarmpenguinmelt.com/d4763e5f8fb679f246c0f6db1eebe973/invoke.js'></script></body></html>"></iframe>
-            </div>
-
-            <div class="sidebar-widget">
                 <p class="sidebar-title">Últimas Noticias</p>
                 <div id="sidebar-list"></div>
+            </div>
+            <div class="ad-sidebar">
+                <iframe sandbox="allow-scripts allow-popups allow-same-origin" width="320" height="50" frameborder="0" scrolling="no" srcdoc="<html><body><script>atOptions = {'key':'d4763e5f8fb679f246c0f6db1eebe973','format':'iframe','height':50,'width':320,'params':{}};</script><script src='https://alarmpenguinmelt.com/d4763e5f8fb679f246c0f6db1eebe973/invoke.js'></script></body></html>"></iframe>
             </div>
         </aside>
     </div>
@@ -218,11 +198,10 @@
             <a href="contacto.html">Contacto</a>
             <a href="acerca.html">Acerca de</a>
         </div>
-        <p>© 2026 PulsoMX — Noticias de México actualizadas automáticamente.</p>
+        <p>© 2025 PulsoMX — Noticias de México actualizadas automáticamente.</p>
     </footer>
 
     <script>
-        // CARGA DE NOTICIAS ORIGINAL
         const id = new URLSearchParams(window.location.search).get('id');
         fetch("data/noticias.json")
             .then(res => res.json())
@@ -278,96 +257,6 @@
             div.innerHTML = html;
             return div.textContent || div.innerText || html;
         }
-
-        // ==========================================
-        // NUEVO SCRIPT DE CLIMA (Open-Meteo)
-        // ==========================================
-        
-        // Mapear los códigos de Open-Meteo a iconos de FontAwesome
-        function getWeatherIcon(code) {
-            if (code === 0) return 'fa-sun'; // Despejado
-            if (code > 0 && code <= 3) return 'fa-cloud-sun'; // Parcialmente nublado
-            if (code >= 45 && code <= 48) return 'fa-smog'; // Niebla
-            if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return 'fa-cloud-rain'; // Lluvia
-            if (code >= 71 && code <= 77 || code === 85 || code === 86) return 'fa-snowflake'; // Nieve
-            if (code >= 95 && code <= 99) return 'fa-cloud-bolt'; // Tormenta
-            return 'fa-cloud'; // Por defecto
-        }
-
-        function getDayName(dateStr, isToday) {
-            if (isToday) return "Hoy";
-            const date = new Date(dateStr + 'T12:00:00');
-            return date.toLocaleDateString('es-MX', { weekday: 'long' });
-        }
-
-        function fetchWeather(lat, lon) {
-            const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=6`;
-            
-            fetch(url)
-                .then(res => res.json())
-                .then(data => {
-                    const current = data.current_weather;
-                    const daily = data.daily;
-                    const mainIcon = getWeatherIcon(current.weathercode);
-                    
-                    let html = `
-                        <div class="weather-current">
-                            <i class="fa-solid ${mainIcon}"></i>
-                            <h3>${Math.round(current.temperature)}°</h3>
-                        </div>
-                        <div class="weather-location"><i class="fa-solid fa-location-dot"></i> Clima Localizado</div>
-                        <div class="weather-forecast">
-                    `;
-
-                    // Mostrar los próximos 5 días (saltando el día actual en el loop principal si queremos, o incluyéndolo)
-                    for (let i = 0; i < 5; i++) {
-                        const dayIcon = getWeatherIcon(daily.weathercode[i]);
-                        const dayName = getDayName(daily.time[i], i === 0);
-                        const maxT = Math.round(daily.temperature_2m_max[i]);
-                        const minT = Math.round(daily.temperature_2m_min[i]);
-                        
-                        html += `
-                            <div class="weather-day">
-                                <div class="weather-day-info">
-                                    <i class="fa-solid ${dayIcon}"></i> ${dayName}
-                                </div>
-                                <div class="weather-day-temps">
-                                    ${minT}° <span>${maxT}°</span>
-                                </div>
-                            </div>
-                        `;
-                    }
-
-                    html += `</div>`;
-                    document.getElementById('weather-widget').innerHTML = html;
-                })
-                .catch(err => {
-                    document.getElementById('weather-widget').innerHTML = '<p style="font-size:0.8rem; color:var(--texto-suave);">No se pudo cargar el clima.</p>';
-                });
-        }
-
-        // Iniciar detección de ubicación
-        function initWeather() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        // Si el usuario acepta, usamos sus coordenadas exactas
-                        fetchWeather(position.coords.latitude, position.coords.longitude);
-                    },
-                    (error) => {
-                        // Si el usuario rechaza o hay error, usamos una ubicación de respaldo estática
-                        fetchWeather(25.5428, -103.4068);
-                    },
-                    { timeout: 5000 }
-                );
-            } else {
-                // Navegadores muy antiguos
-                fetchWeather(25.5428, -103.4068);
-            }
-        }
-
-        // Ejecutar la función del clima al cargar la página
-        initWeather();
     </script>
 </body>
 </html>
