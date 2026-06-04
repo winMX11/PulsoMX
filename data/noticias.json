@@ -1,1 +1,102 @@
-[]
+[
+  {
+    "id": 1,
+    "titulo_original": "Velas Resorts renueva sus Estrellas Michelin por tercer año consecutivo",
+    "titulo": "Velas Resorts renueva sus Estrellas Michelin por tercer año consecutivo",
+    "resumen": "Noticia en desarrollo.",
+    "contenido": "Revisa el enlace original para más detalles.",
+    "imagen": "https://wsrv.nl/?url=https://cdn-3.expansion.mx/dims4/default/ca469c4/2147483647/strip/true/crop/5988x3144+0+424/resize/1200x630!/format/jpg/quality/80/",
+    "fecha": "2026-06-04",
+    "url_origen": "https://expansion.mx/tendencias/2026/06/03/velas-resorts-renueva-estrellas-michelin-tercer-consecutivo"
+  },
+  {
+    "id": 2,
+    "titulo_original": "Las sanciones de EU a Cuba aceleran el repliegue de las empresas extranjeras",
+    "titulo": "Las sanciones de EU a Cuba aceleran el repliegue de las empresas extranjeras",
+    "resumen": "Noticia en desarrollo.",
+    "contenido": "Revisa el enlace original para más detalles.",
+    "imagen": "https://wsrv.nl/?url=https://cdn-3.expansion.mx/dims4/default/fc675a4/2147483647/strip/true/crop/1200x630+0+86/resize/1200x630!/format/jpg/quality/80/",
+    "fecha": "2026-06-04",
+    "url_origen": "https://expansion.mx/mundo/2026/06/03/las-sanciones-de-eu-a-cuba-aceleran-el-repliegue-de-las-empresas-extranjeras"
+  },
+  {
+    "id": 3,
+    "titulo_original": "MG, Hyundai y Ford libran una batalla por mantenerse en el Top 10 de ventas de autos nuevos en México",
+    "titulo": "MG, Hyundai y Ford libran una batalla por mantenerse en el Top 10 de ventas de autos nuevos en México",
+    "resumen": "Noticia en desarrollo.",
+    "contenido": "Revisa el enlace original para más detalles.",
+    "imagen": "https://wsrv.nl/?url=https://cdn-3.expansion.mx/dims4/default/b4a3532/2147483647/strip/true/crop/1800x945+0+34/resize/1200x630!/format/jpg/quality/80/",
+    "fecha": "2026-06-04",
+    "url_origen": "https://expansion.mx/empresas/2026/06/03/mg-hyundai-y-ford-disputa-por-subirse-al-top-10-de-ventas"
+  },
+  {
+    "id": 4,
+    "titulo_original": "La relación entre Trump y Netanyahu se complica ante el avance de la guerra",
+    "titulo": "La relación entre Trump y Netanyahu se complica ante el avance de la guerra",
+    "resumen": "Noticia en desarrollo.",
+    "contenido": "Revisa el enlace original para más detalles.",
+    "imagen": "https://wsrv.nl/?url=https://cdn-3.expansion.mx/dims4/default/2b7f033/2147483647/strip/true/crop/1200x630+0+135/resize/1200x630!/format/jpg/quality/80/",
+    "fecha": "2026-06-04",
+    "url_origen": "https://expansion.mx/mundo/2026/06/03/relacion-trump-y-netanyahu-pende-hilo-guerra"
+  },
+  {
+    "id": 5,
+    "titulo_original": "Pemex enfrenta un reporte de derrame cerca de un muelle turístico en Manzanillo",
+    "titulo": "Pemex enfrenta un reporte de derrame cerca de un muelle turístico en Manzanillo",
+    "resumen": "Noticia en desarrollo.",
+    "contenido": "Revisa el enlace original para más detalles.",
+    "imagen": "https://wsrv.nl/?url=https://cdn-3.expansion.mx/dims4/default/673a262/2147483647/strip/true/crop/1800x945+0+128/resize/1200x630!/format/jpg/quality/80/",
+    "fecha": "2026-06-04",
+    "url_origen": "https://expansion.mx/empresas/2026/06/03/pemex-enfrenta-un-reporte-de-derrame-cerca-de-un-muelle-turistico-en-manzanillo"
+  },
+  {
+    "id": 6,
+    "titulo_original": "En el Mundial jugarán 1,248 avatares de IA, pero el futbol no perderá su esencia",
+    "titulo": "En el Mundial jugarán 1,248 avatares de IA, pero el futbol no perderá su esencia",
+    "resumen": "Noticia en desarrollo.",
+    "contenido": "Revisa el enlace original para más detalles.",
+    "imagen": "https://wsrv.nl/?url=https://cdn-3.expansion.mx/dims4/default/bee330d/2147483647/strip/true/crop/1024x538+0+19/resize/1200x630!/format/jpg/quality/80/",
+    "fecha": "2026-06-04",
+    "url_origen": "https://expansion.mx/tecnologia/2026/06/03/en-el-mundial-jugaran-1-248-avatares-de-ia-pero-el-futbol-no-perdera-su-esencia"
+  },
+  {
+    "id": 7,
+    "titulo_original": "Irán y Estados Unidos lanzan ataques cruzados que dejan un muerto en Kuwait",
+    "titulo": "Irán y Estados Unidos lanzan ataques cruzados que dejan un muerto en Kuwait",
+    "resumen": "Noticia en desarrollo.",
+    "contenido": "Revisa el enlace original para más detalles.",
+    "imagen": "https://wsrv.nl/?url=https://cdn-3.expansion.mx/dims4/default/0ec2ffe/2147483647/strip/true/crop/1200x630+0+85/resize/1200x630!/format/jpg/quality/80/",
+    "fecha": "2026-06-04",
+    "url_origen": "https://expansion.mx/mundo/2026/06/03/iran-y-estados-unidos-lanzan-ataques-cruzados"
+  },
+  {
+    "id": 8,
+    "titulo_original": "Microsoft lanza siete modelos de IA propios y se aleja de OpenAI",
+    "titulo": "Microsoft lanza siete modelos de IA propios y se aleja de OpenAI",
+    "resumen": "Noticia en desarrollo.",
+    "contenido": "Revisa el enlace original para más detalles.",
+    "imagen": "https://wsrv.nl/?url=https://cdn-3.expansion.mx/dims4/default/4676b02/2147483647/strip/true/crop/1800x945+0+34/resize/1200x630!/format/jpg/quality/80/",
+    "fecha": "2026-06-04",
+    "url_origen": "https://expansion.mx/tecnologia/2026/06/03/microsoft-lanza-siete-modelos-propios-ia"
+  },
+  {
+    "id": 9,
+    "titulo_original": "La Comer acelera el regreso de Sumesa para competir con Bodega Aurrera Express",
+    "titulo": "La Comer acelera el regreso de Sumesa para competir con Bodega Aurrera Express",
+    "resumen": "Noticia en desarrollo.",
+    "contenido": "Revisa el enlace original para más detalles.",
+    "imagen": "https://wsrv.nl/?url=https://cdn-3.expansion.mx/dims4/default/e84a805/2147483647/strip/true/crop/1587x833+0+35/resize/1200x630!/format/jpg/quality/80/",
+    "fecha": "2026-06-04",
+    "url_origen": "https://expansion.mx/empresas/2026/06/03/sumesa-regresa-decada-en-pausa-plan-la-comer"
+  },
+  {
+    "id": 10,
+    "titulo_original": "¿Trabajarás el 11 de junio, día de la inauguración del Mundial 2026? Esto es lo que deben pagarte",
+    "titulo": "¿Trabajarás el 11 de junio, día de la inauguración del Mundial 2026? Esto es lo que deben pagarte",
+    "resumen": "Noticia en desarrollo.",
+    "contenido": "Revisa el enlace original para más detalles.",
+    "imagen": "https://wsrv.nl/?url=https://cdn-3.expansion.mx/dims4/default/2ade9fc/2147483647/strip/true/crop/1672x878+0+32/resize/1200x630!/format/jpg/quality/80/",
+    "fecha": "2026-06-04",
+    "url_origen": "https://expansion.mx/finanzas-personales/2026/06/03/como-se-paga-11-de-junio"
+  }
+]
