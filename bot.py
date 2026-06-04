@@ -1,4 +1,5 @@
 import os
+import urllib.parse 
 import json
 import requests
 import xml.etree.ElementTree as ET
@@ -80,14 +81,19 @@ def imagen_fallback(titulo):
     seed = abs(hash(titulo)) % 9999
     return f"https://picsum.photos/seed/{seed}/800/500"
 
+
 def obtener_imagen(titulo, url_real):
     print(f"   🌐 URL directa: {url_real[:65]}...")
     img = extraer_imagen_de_articulo(url_real)
     
     if img:
         print(f"   🖼️ Imagen extraída del artículo ✅")
-        # SOLO MODIFICA LA LÍNEA DEL RETURN PARA AGREGAR EL PROXY
-        return f"https://wsrv.nl/?url={img}", url_real
+        
+        # 🔥 EL FIX: Codificamos la URL para que los símbolos raros no rompan el proxy
+        url_segura = urllib.parse.quote(img, safe='')
+        img_proxy = f"https://wsrv.nl/?url={url_segura}"
+        
+        return img_proxy, url_real
     else:
         print(f"   ⚠️ No se encontró imagen en el artículo, usando fallback")
         return imagen_fallback(titulo), url_real
