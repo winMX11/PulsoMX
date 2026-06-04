@@ -1,5 +1,5 @@
 import os
-import urllib.parse
+import urllib.parse 
 import json
 import requests
 import xml.etree.ElementTree as ET
@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 # ⚙️ CONFIGURACIÓN
 MODO_TURBO = True
-NOTICIAS_POR_CARRERA = 3 if MODO_TURBO else 1
+NOTICIAS_POR_CARRERA = 10 if MODO_TURBO else 1
 
 # 🔥 RSS directos de fuentes mexicanas.
 RSS_FEEDS = [
@@ -80,6 +80,7 @@ def extraer_imagen_de_articulo(url_real):
 def imagen_fallback(titulo):
     seed = abs(hash(titulo)) % 9999
     return f"https://picsum.photos/seed/{seed}/800/500"
+
 
 def obtener_imagen(titulo, url_real):
     print(f"   🌐 URL directa: {url_real[:65]}...")
