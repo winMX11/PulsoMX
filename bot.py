@@ -3,6 +3,7 @@ import json
 import requests
 import xml.etree.ElementTree as ET
 import re
+import time  # ⏱️ Añadido para controlar el límite de la API
 from datetime import datetime
 from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
@@ -11,7 +12,7 @@ from bs4 import BeautifulSoup
 MODO_TURBO = True
 NOTICIAS_POR_CARRERA = 10 if MODO_TURBO else 1
 
-# 🔥 ADIÓS GOOGLE. Usamos RSS directos de fuentes mexicanas.
+# 🔥 RSS directos de fuentes mexicanas.
 RSS_FEEDS = [
     "https://aristeguinoticias.com/feed/",
     "https://www.proceso.com.mx/rss/feed.html",
@@ -43,7 +44,6 @@ def guardar_noticias(noticias):
         json.dump(noticias, f, ensure_ascii=False, indent=2)
 
 def extraer_imagen_de_articulo(url_real):
-    """Extrae og:image de la URL directa del periódico."""
     if not url_real:
         return None
     try:
@@ -77,12 +77,10 @@ def extraer_imagen_de_articulo(url_real):
     return None
 
 def imagen_fallback(titulo):
-    """Fallback: imagen temática de Picsum basada en seed del título."""
     seed = abs(hash(titulo)) % 9999
     return f"https://picsum.photos/seed/{seed}/800/500"
 
 def obtener_imagen(titulo, url_real):
-    """Como ya tenemos la URL real directa, vamos por la imagen sin decodificar."""
     print(f"   🌐 URL directa: {url_real[:65]}...")
     img = extraer_imagen_de_articulo(url_real)
     
@@ -131,6 +129,12 @@ Responde ÚNICAMENTE con un JSON válido con estas tres claves exactas: "titulo"
     try:
         r = requests.post(url, headers=headers, json=payload, timeout=45)
         res = r.json()
+        
+        # 🛠️ Manejo de errores si Groq bloquea por límite de peticiones
+        if 'choices' not in res:
+            print(f"   ⚠️ API Groq Error: {res.get('error', {}).get('message', 'Límite alcanzado o error desconocido')}")
+            return titulo_orig, "Noticia en desarrollo.", "Revisa el enlace original para más detalles."
+
         contenido_crudo = res['choices'][0]['message']['content']
         data = json.loads(contenido_crudo)
         titulo = data.get("titulo", titulo_orig)[:120]
@@ -154,7 +158,6 @@ def ejecutar():
             
         try:
             res = session.get(feed_url, timeout=10)
-            # Manejar posibles errores de codificación en algunos XML
             res.encoding = res.apparent_encoding 
             root = ET.fromstring(res.text)
         except Exception as e:
@@ -166,11 +169,8 @@ def ejecutar():
                 break
                 
             t_orig = item.find("title").text
-            
-            # Evitar vacíos
             if not t_orig: continue
 
-            # Extraer enlace directo
             link_elem = item.find("link")
             link_directo = ""
             if link_elem is not None and link_elem.text:
@@ -192,7 +192,6 @@ def ejecutar():
             print(f"\n🔄 Procesando: {t_orig[:60]}...")
             t_ia, r_ia, c_ia = reescribir_con_ia(t_orig)
 
-            # Extraemos imagen mandando el enlace limpio y directo
             img_url, url_real = obtener_imagen(t_ia, link_directo)
 
             nuevo_id = max([n.get("id", 0) for n in noticias_guardadas], default=0) + 1
@@ -209,6 +208,9 @@ def ejecutar():
             nuevos += 1
             noticias_procesadas += 1
             print(f"✅ Guardada: {t_ia[:50]} ({len(c_ia.split())} palabras)")
+            
+            # ⏱️ Pausa obligatoria para evitar el bloqueo de Groq (Rate Limit)
+            time.sleep(4)
 
     if nuevos > 0:
         if len(noticias_guardadas) > 100:
